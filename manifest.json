@@ -1,8 +1,8 @@
 {
-  "name": "混合平均戰法",
-  "short_name": "混合平均",
-  "description": "MIXED AVERAGE STRATEGY",
-  "start_url": "./",
+  "name": "混合平均戰法 MIXED AVERAGE STRATEGY",
+  "short_name": "混合平均戰法",
+  "lang": "zh-TW",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#030508",
