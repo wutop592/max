@@ -45,32 +45,32 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
 </head>
 <body>
 <header><div class="header-inner">
- <div class="brand"><div class="app-icon"><img src="icon-192.png" alt="混合平均戰法"></div><div><h1>混合平均戰法</h1><div class="subtitle">MIXED AVERAGE STRATEGY · 100 TRADES</div></div></div>
- <div class="toolbar"><div class="status"><span class="dot" id="status-dot"></span><span id="status-text">待命</span></div><button class="btn cyan" onclick="fetchAll()">↻ 更新行情</button><button class="btn purple" onclick="setKey()">⚿ 美股 Key</button><button class="btn red" onclick="resetAll()">清除重置</button></div>
+ <div class="brand"><div class="app-icon"><img src="icon-192.png" alt="混合平均戰法"></div><div><h1>混合平均戰法</h1><div class="subtitle">TAIWAN STOCKS · 100 ROWS</div></div></div>
+ <div class="toolbar"><div class="status"><span class="dot" id="status-dot"></span><span id="status-text">待命</span></div><button class="btn cyan" onclick="fetchAll()">↻ 更新行情</button><button class="btn red" onclick="resetAll()">清除重置</button></div>
 </div></header>
 <main>
 <section class="summary-grid">
  <div class="summary-card highlight"><div class="summary-label">整體持倉浮動盈虧</div><div class="summary-value" id="total-floating">0</div><div class="summary-note">依各行剩餘持倉及各自行情計算</div></div>
- <div class="summary-card"><div class="summary-label">累計已實現盈虧</div><div class="summary-value" id="total-realized">0</div><div class="summary-note">按照賣出當時的共同平均成本計算</div></div>
+ <div class="summary-card"><div class="summary-label">累計已實現盈虧</div><div class="summary-value" id="total-realized">0</div><div class="summary-note">按照相同股票代碼的平均成本計算；超賣數量不列入實際賣出金額</div></div>
  <div class="summary-card purple"><div class="summary-label">總持倉市值</div><div class="summary-value" id="total-value">0</div><div class="summary-note">各行剩餘數量 × 各自行情報價</div></div>
 </section>
-<section class="panel"><h2 class="section-title">✦ 100行混合平均總覽</h2><div class="stats-grid">
- <div class="stat"><div class="stat-label">共同平均成本</div><div class="stat-value cyan-text" id="avg-cost">0</div></div><div class="stat"><div class="stat-label">總持有張數</div><div class="stat-value" id="total-lots">0</div></div><div class="stat"><div class="stat-label">剩餘持倉成本</div><div class="stat-value" id="remaining-cost">0</div></div><div class="stat"><div class="stat-label">總買進金額</div><div class="stat-value" id="buy-total">0</div></div><div class="stat"><div class="stat-label">總買進張數</div><div class="stat-value" id="buy-lots">0</div></div><div class="stat"><div class="stat-label">總賣出金額</div><div class="stat-value" id="sell-total">0</div></div><div class="stat"><div class="stat-label">累計賣出張數</div><div class="stat-value" id="sell-lots">0</div></div><div class="stat"><div class="stat-label">整體報酬率</div><div class="stat-value" id="total-percent">0%</div></div>
+<section class="panel"><h2 class="section-title">✦ 100行股票平均總覽</h2><div class="stats-grid">
+ <div class="stat"><div class="stat-label">平均成本（單一代碼）</div><div class="stat-value cyan-text" id="avg-cost">0</div></div><div class="stat"><div class="stat-label">總持有張數</div><div class="stat-value" id="total-lots">0</div></div><div class="stat"><div class="stat-label">剩餘持倉成本</div><div class="stat-value" id="remaining-cost">0</div></div><div class="stat"><div class="stat-label">總買進金額</div><div class="stat-value" id="buy-total">0</div></div><div class="stat"><div class="stat-label">總買進張數</div><div class="stat-value" id="buy-lots">0</div></div><div class="stat"><div class="stat-label">總賣出金額</div><div class="stat-value" id="sell-total">0</div></div><div class="stat"><div class="stat-label">累計賣出張數</div><div class="stat-value" id="sell-lots">0</div></div><div class="stat"><div class="stat-label">整體報酬率</div><div class="stat-value" id="total-percent">0%</div></div>
 </div></section>
 <section class="panel table-panel">
- <div class="table-heading"><h2>▦ 混合交易紀錄（100行）</h2><span>股票代碼在最左側｜自動儲存</span></div>
+ <div class="table-heading"><h2>▦ 股票交易紀錄（100行）</h2><span>僅限台股代碼｜100行完整顯示｜自動儲存</span></div>
  <div class="table-scroll"><table class="trade-table"><colgroup><col class="col-no"><col class="col-stock"><col class="col-date"><col class="col-price"><col class="col-lots"><col class="col-amount"><col class="col-date"><col class="col-price"><col class="col-lots"><col class="col-amount"><col class="col-profit"><col class="col-percent"></colgroup>
  <thead><tr><th>序</th><th>股票代碼／名稱／目前價</th><th>買進日期</th><th>買進價</th><th>買進張數</th><th>買進金額</th><th>賣出日期</th><th>賣出價</th><th>賣出張數</th><th>賣出金額</th><th>已實現／浮動盈虧</th><th>盈虧百分比</th></tr></thead><tbody id="trade-body"></tbody></table></div>
- <div class="table-footer"><div>共同持倉平均成本：<strong id="footer-average">0</strong></div><div>整體總盈虧：<strong id="footer-profit">0</strong></div><div>紀錄數量：<strong>100 行</strong></div></div>
+ <div class="table-footer"><div>平均成本（單一代碼）：<strong id="footer-average">0</strong></div><div>整體總盈虧：<strong id="footer-profit">0</strong></div><div>紀錄數量：<strong>100 行</strong></div></div>
 </section>
 <section class="panel" style="margin-top:13px"><h2 class="section-title">計算及使用說明</h2>
- <div class="bottom-note">1. 一共100行，每行可輸入不同股票代碼。<br>2. 台股代碼例如2330、0050、00919。<br>3. 美股代碼例如AAPL、NVDA、TSLA。<br>4. 加密貨幣例如BTC、ETH、SOL。<br>5. 每張以1000股計算，買進及賣出張數只能輸入整數。<br>6. 買進及賣出均按照表格由上往下的順序計算。<br>7. 每列先執行買進，再執行賣出。<br>8. 賣出超過當時總持倉數量時，超出部分不計算，並顯示警告。<br>9. 行情價格會獨立查詢，總市值以各行剩餘數量及其價格計算。<br>10. 所有資料自動儲存於目前瀏覽器，請勿清除網站資料。<br>11. 行情每60秒自動更新一次，也可手動更新。<br>12. 本程式未計入手續費、交易稅及匯率差異。<br>13. 不同股票合併後的共同平均成本是數學上的數量加權平均，不是各股票個別的實際成本價。<br>14. 已實現盈虧只計算實際賣出的數量；未賣出的剩餘數量仍然列為浮動盈虧。</div>
- <div class="strategy-info"><b>共同平均成本計算方式：</b><br>① 100行所有買進紀錄全部加入同一個成本池。<br>② 共同平均成本＝剩餘持倉成本 ÷ 剩餘持有股數。<br>③ 每次賣出均依賣出前的共同平均成本計算已實現盈虧。<br>④ 賣出後扣除相應成本，剩餘平均成本不變。<br>⑤ 每行股票名稱及行情獨立查詢，但買賣成本不區分股票。<br>⑥ 尚未賣出的持倉顯示浮動盈虧；有賣出紀錄時顯示已實現盈虧。<br>⑦ 部分賣出但仍有持倉時，同時顯示已實現盈虧及剩餘持倉浮動盈虧，百分比分別計算。</div>
+ <div class="bottom-note">1. 本版只供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同台股代碼。<br>2. 台股代碼例如2330、0050、00888、00919。<br>3. 每張以1000股計算，買進及賣出張數只能輸入整數。<br>6. 買進及賣出均按照表格由上往下的順序計算。<br>7. 每列先執行買進，再執行賣出。<br>8. 賣出超過當時總持倉數量時，超出部分不計算，並顯示警告。<br>9. 行情價格會獨立查詢，總市值以各行剩餘數量及其價格計算。<br>10. 所有資料自動儲存於目前瀏覽器，請勿清除網站資料。<br>11. 行情每60秒自動更新一次，也可手動更新。<br>12. 本程式未計入手續費及交易稅。<br>13. 不同股票各自獨立計算平均成本，不會互相混算。<br>14. 已實現盈虧只計算實際賣出的數量；未賣出的剩餘數量仍然列為浮動盈虧。</div>
+ <div class="strategy-info"><b>台股各代碼獨立平均成本計算方式：</b><br>① 相同股票代碼的100行買進紀錄合併計算；不同股票各自獨立。<br>② 各股票平均成本＝該股票剩餘成本 ÷ 該股票剩餘股數。<br>③ 每次賣出均依該股票賣出前的加權平均成本計算已實現盈虧；超出庫存的賣出數量不計入成交金額。<br>④ 賣出後扣除相應成本，剩餘平均成本不變。<br>⑤ 相同代碼即使分散在不同列也會合併；不同代碼不會互相影響成本。<br>⑥ 尚未賣出的持倉顯示浮動盈虧；有賣出紀錄時顯示已實現盈虧。<br>⑦ 部分賣出但仍有持倉時，同時顯示已實現盈虧及剩餘持倉浮動盈虧，百分比分別計算。</div>
 </section></main>
 <button id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 'use strict';
-const STORAGE_KEY='MIXED_AVERAGE_STRATEGY_V1',ROW_COUNT=100,CRYPTO=['BTC','ETH','SOL','XRP','DOGE','BNB','ADA','AVAX','LINK','DOT','TRX','LTC','SUI','PEPE','TON','SHIB'];
+const STORAGE_KEY='MIXED_AVERAGE_STRATEGY_V1',ROW_COUNT=100;
 const blankTrade=()=>({date:'',price:'',lots:'',amount:''}),blankRow=()=>({symbol:'',name:'',src:'',latestPrice:null,buy:blankTrade(),sell:blankTrade()});
 let rows=[],requestVersion=Array(ROW_COUNT).fill(0),quoteCache={},twseCache=null,tpexCache=null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -97,21 +97,90 @@ function render(){let h='';rows.forEach((r,i)=>{h+=`<tr><td class="row-index">${
 <td><input class="trade-input" type="number" step="any" placeholder="賣出價" value="${esc(r.sell.price)}" onfocus="focusClear(this)" oninput="onTrade(${i},'sell','price',this.value)" onblur="restoreEmpty(this)"></td>
 <td><input class="trade-input" type="number" step="1" min="0" placeholder="整數" value="${esc(r.sell.lots)}" onfocus="focusClear(this)" oninput="onTrade(${i},'sell','lots',this.value)" onblur="restoreEmpty(this)"></td>
 <td><div id="sell-amount-${i}" class="amount">--</div></td><td><div id="row-profit-${i}" class="profit-cell">--</div><div id="row-warning-${i}" class="row-warning"></div></td><td id="row-percent-${i}" class="percent-cell">--</td></tr>`;});document.getElementById('trade-body').innerHTML=h;calculate();}
-function price(t){return positive(t.price)?Number(t.price):0;}function qty(t){return wholeLots(t.lots)*1000;}
+function price(t){return positive(t.price)?Number(t.price):0;}function qty(t){return wholeLots(t.lots)*1000;}function parseNum(v){const n=Number(String(v??'').replace(/,/g,'').trim());return Number.isFinite(n)?n:0;}
 function onTrade(i,type,field,value){const t=rows[i][type],el=document.activeElement;if(el?.tagName==='INPUT')markEdited(el);if(field==='lots'){t.lots=value===''?'':(Number.isFinite(parseInt(value,10))&&parseInt(value,10)>0?String(parseInt(value,10)):'');if(el?.type==='number')el.value=t.lots;}else t[field]=value;if(field==='price'||field==='lots'){const v=price(t)*qty(t),a=document.getElementById(type+'-amount-'+i);t.amount=v>0?String(v):'';if(a)a.textContent=v>0?money(v):'--';}save();calculate();}
-function accounting(){let q=0,cost=0,real=0,buySum=0,sellSum=0,buyQ=0,sellQ=0;const lots=[],out=rows.map(()=>({buy:0,sell:0,real:0,realCost:0,hasSell:false,over:0,left:0,float:0,floatPct:null,realPct:null}));rows.forEach((r,i)=>{let o=out[i],bp=price(r.buy),bq=qty(r.buy);if(bp&&bq){o.buy=bp*bq;q+=bq;cost+=o.buy;buySum+=o.buy;buyQ+=bq;lots.push({row:i,qty:bq});}let sp=price(r.sell),sq=qty(r.sell);if(sp&&sq){o.hasSell=true;o.sell=sp*sq;sellSum+=o.sell;sellQ+=sq;let used=Math.min(sq,q);if(used){let avg=cost/q,alloc=avg*used,pnl=(sp-avg)*used;real+=pnl;o.real+=pnl;o.realCost+=alloc;cost=Math.max(0,cost-alloc);q=Math.max(0,q-used);let need=used;for(let lot of lots){if(!need)break;let n=Math.min(lot.qty,need);lot.qty-=n;need-=n;}}o.over=sq-used;}});lots.forEach(l=>{if(l.qty>0)out[l.row].left+=l.qty;});let avg=q?cost/q:0;out.forEach(o=>{if(o.left)o.leftCost=o.left*avg;});let floating=0,value=0;lots.forEach(l=>{if(l.qty<=0)return;let r=rows[l.row],o=out[l.row];if(positive(r.latestPrice)){let p=Number(r.latestPrice);o.float+=(p-avg)*l.qty;floating+=(p-avg)*l.qty;value+=p*l.qty;}});out.forEach(o=>{if(o.left&&o.leftCost&&positive(rows[out.indexOf(o)]?.latestPrice))o.floatPct=o.float/o.leftCost*100;if(o.realCost)o.realPct=o.real/o.realCost*100;});let total=real+floating;return{q,cost,avg,real,floating,value,buySum,sellSum,buyQ,sellQ,total,ret:buySum?total/buySum*100:0,out};}
+function accounting(){
+ // 每一個台股代碼各自建立成本池；相同代碼跨列合併，不同代碼絕不混算。
+ const pools=new Map();
+ const out=rows.map(()=>({buy:0,sell:0,real:0,realCost:0,hasSell:false,over:0,left:0,leftCost:0,float:0,floatPct:null,realPct:null}));
+ let buySum=0,sellSum=0,buyQ=0,sellQ=0,real=0;
+ function keyFor(r,i){return r.symbol?String(r.symbol).trim().toUpperCase():'__ROW_'+i;}
+ function poolFor(key){if(!pools.has(key))pools.set(key,{qty:0,cost:0,lots:[]});return pools.get(key);}
+ rows.forEach((r,i)=>{
+  const o=out[i],key=keyFor(r,i),pool=poolFor(key);
+  const bp=price(r.buy),bq=qty(r.buy);
+  if(bp>0&&bq>0){
+   const amount=bp*bq;o.buy=amount;buySum+=amount;buyQ+=bq;
+   pool.qty+=bq;pool.cost+=amount;pool.lots.push({row:i,qty:bq});
+  }
+  const sp=price(r.sell),sq=qty(r.sell);
+  if(sp>0&&sq>0){
+   o.hasSell=true;
+   const used=Math.min(sq,pool.qty);
+   // 僅把實際有庫存可成交的數量計入賣出金額與賣出張數，超出部分不虛增。
+   o.sell=sp*used;sellSum+=o.sell;sellQ+=used;
+   if(used>0){
+    const avg=pool.cost/pool.qty,allocated=avg*used,pnl=(sp-avg)*used;
+    o.real+=pnl;o.realCost+=allocated;real+=pnl;
+    pool.cost=Math.max(0,pool.cost-allocated);pool.qty=Math.max(0,pool.qty-used);
+    let need=used;
+    // FIFO只用來把剩餘持倉歸回原列；盈虧成本仍採同代碼加權平均法。
+    for(const lot of pool.lots){if(need<=0)break;const n=Math.min(lot.qty,need);lot.qty-=n;need-=n;}
+   }
+   o.over=sq-used;
+  }
+ });
+ let floating=0,value=0,totalQty=0,totalCost=0;
+ const activeAverages=[];
+ for(const [key,pool] of pools){
+  if(pool.qty>0){
+   const avg=pool.cost/pool.qty;activeAverages.push({key,avg});
+   totalQty+=pool.qty;totalCost+=pool.cost;
+   for(const lot of pool.lots){
+    if(lot.qty<=0)continue;
+    const r=rows[lot.row],o=out[lot.row];
+    o.left+=lot.qty;o.leftCost+=avg*lot.qty;
+    if(positive(r.latestPrice)){
+     const px=Number(r.latestPrice),pnl=(px-avg)*lot.qty;
+     o.float+=pnl;floating+=pnl;value+=px*lot.qty;
+    }
+   }
+  }
+ }
+ out.forEach(o=>{
+  if(o.leftCost>0&&o.left>0&&o.left>0){
+   // 每列浮動報酬率以該列剩餘部位成本為分母。
+   const row=out.indexOf(o);
+   if(positive(rows[row]?.latestPrice))o.floatPct=o.float/o.leftCost*100;
+  }
+  if(o.realCost>0)o.realPct=o.real/o.realCost*100;
+ });
+ const total=real+floating;
+ const avgText=activeAverages.length===0?'0':activeAverages.length===1?fmt(activeAverages[0].avg):'依代碼分開';
+ return{q:totalQty,cost:totalCost,avg:activeAverages.length===1?activeAverages[0].avg:0,avgText,activeCount:activeAverages.length,real,floating,value,buySum,sellSum,buyQ,sellQ,total,ret:buySum?total/buySum*100:0,out};
+}
 function showRow(o){let p='',v='';if(o.hasSell&&o.realCost){p+=`<span class="profit-line ${profitClass(o.real)}">已實現 ${signed(o.real)}</span>`;v+=`<span class="percent-line ${profitClass(o.real)}">${pct(o.realPct)}</span>`;}if(o.left&&o.floatPct!==null){p+=`<span class="profit-line ${profitClass(o.float)}">浮動 ${signed(o.float)}</span>`;v+=`<span class="percent-line ${profitClass(o.float)}">${pct(o.floatPct)}</span>`;}return{p:p||'--',v:v||'--'};}
-function calculate(){let a=accounting(),put=(id,v)=>{let e=document.getElementById(id);if(e)e.textContent=v;};put('total-floating',signed(a.floating));document.getElementById('total-floating').className='summary-value '+profitClass(a.floating);put('total-realized',signed(a.real));document.getElementById('total-realized').className='summary-value '+profitClass(a.real);put('total-value',money(a.value));put('avg-cost',fmt(a.avg));put('total-lots',lotsFmt(a.q));put('remaining-cost',money(a.cost));put('buy-total',money(a.buySum));put('buy-lots',lotsFmt(a.buyQ));put('sell-total',money(a.sellSum));put('sell-lots',lotsFmt(a.sellQ));put('total-percent',pct(a.ret));document.getElementById('total-percent').className='stat-value '+profitClass(a.total);put('footer-average',fmt(a.avg));put('footer-profit',signed(a.total));document.getElementById('footer-profit').className=profitClass(a.total);a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');let s=showRow(o),p=document.getElementById('row-profit-'+i),v=document.getElementById('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;put('row-warning-'+i,o.over?'超賣 '+lotsFmt(o.over)+' 張':'');});}
+function calculate(){let a=accounting(),put=(id,v)=>{let e=document.getElementById(id);if(e)e.textContent=v;};put('total-floating',signed(a.floating));document.getElementById('total-floating').className='summary-value '+profitClass(a.floating);put('total-realized',signed(a.real));document.getElementById('total-realized').className='summary-value '+profitClass(a.real);put('total-value',money(a.value));put('avg-cost',a.avgText);put('total-lots',lotsFmt(a.q));put('remaining-cost',money(a.cost));put('buy-total',money(a.buySum));put('buy-lots',lotsFmt(a.buyQ));put('sell-total',money(a.sellSum));put('sell-lots',lotsFmt(a.sellQ));put('total-percent',pct(a.ret));document.getElementById('total-percent').className='stat-value '+profitClass(a.total);put('footer-average',a.avgText);put('footer-profit',signed(a.total));document.getElementById('footer-profit').className=profitClass(a.total);a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');let s=showRow(o),p=document.getElementById('row-profit-'+i),v=document.getElementById('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;put('row-warning-'+i,o.over?'超賣 '+lotsFmt(o.over)+' 張':'');});}
 const PROXIES=[u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://r.jina.ai/'+u];
 async function fetchJSON(url){for(const proxy of PROXIES){let ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),7000);try{let r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(r.ok){let t=await r.text();try{return JSON.parse(t);}catch(e){let s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s){try{return JSON.parse(t.slice(s,end+1));}catch(_){}}}}}catch(e){}clearTimeout(timer);}return null;}
 async function yahoo(s){for(let host of['query1','query2']){let d=await fetchJSON(`https://${host}.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(s)}?interval=1d&range=1d`),m=d?.chart?.result?.[0]?.meta;if(m&&Number(m.regularMarketPrice)>0)return{name:m.shortName||m.longName||m.symbol,price:Number(m.regularMarketPrice),src:'Yahoo Finance'};}return null;}
-async function taiwanStock(code){if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');let tw=await twseCache;if(Array.isArray(tw)){let x=tw.find(v=>v.Code===code);if(x&&parseFloat(x.ClosingPrice)>0)return{name:x.Name||code,price:parseFloat(x.ClosingPrice),src:'TWSE 收盤'};}if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');let tp=await tpexCache;if(Array.isArray(tp)){let x=tp.find(v=>(v.SecuritiesCompanyCode||v.Code)===code);if(x&&parseFloat(x.Close)>0)return{name:x.CompanyName||x.Name||code,price:parseFloat(x.Close),src:'TPEx 收盤'};}return await yahoo(code+'.TW')||await yahoo(code+'.TWO');}
-async function cryptoPrice(s){let b=s.replace(/(USDT|-USD)$/,'');try{let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol='+b+'USDT');if(r.ok){let d=await r.json();if(Number(d.price)>0)return{name:b+'/USDT',price:Number(d.price),src:'Binance'};}}catch(e){}return await yahoo(b+'-USD');}
-async function getPrice(raw){let s=String(raw||'').trim().toUpperCase();if(!s)return null;if(/^\d{4,6}[A-Z]?$/.test(s))return taiwanStock(s);if(CRYPTO.includes(s)||/USDT$|-USD$/.test(s))return cryptoPrice(s);let key=localStorage.getItem('TD_KEY');if(key){try{let r=await fetch('https://api.twelvedata.com/price?symbol='+encodeURIComponent(s)+'&apikey='+encodeURIComponent(key)),d=await r.json();if(Number(d.price)>0)return{name:s,price:Number(d.price),src:'Twelve Data'};}catch(e){}}return await yahoo(s);}
+async function taiwanStock(code){
+ // 先查上市，再查上櫃；TPEx API 欄位名稱採彈性辨識，避免 ETF 欄位差異造成漏查。
+ if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
+ const tw=await twseCache;
+ if(Array.isArray(tw)){const x=tw.find(v=>String(v.Code||v.code||'').trim()===code);if(x){const px=parseNum(x.ClosingPrice??x.close??x.Close);if(px>0)return{name:x.Name||x.name||code,price:px,src:'TWSE 收盤'};}}
+ if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');
+ const tp=await tpexCache;
+ const list=Array.isArray(tp)?tp:(Array.isArray(tp?.data)?tp.data:[]);
+ const x=list.find(v=>{const k=Object.keys(v||{}).find(k=>/securitiescompanycode|stockcode|code/i.test(k));return k&&String(v[k]??'').trim()===code;});
+ if(x){const nk=Object.keys(x).find(k=>/companyname|stockname|name/i.test(k));const pk=Object.keys(x).find(k=>/closingprice|closeprice|close|lastprice/i.test(k));const px=pk?parseNum(x[pk]):0;if(px>0)return{name:(nk&&x[nk])||code,price:px,src:'TPEx 收盤'};}
+ // 00888 為櫃買 ETF，Yahoo 正確代碼通常是 .TWO；先查 .TWO 再查 .TW。
+ return await yahoo(code+'.TWO')||await yahoo(code+'.TW');
+}
+async function getPrice(raw){let s=String(raw||'').trim().toUpperCase();if(!/^\d{4,6}[A-Z]?$/.test(s))return null;return await taiwanStock(s);}
 function updateQuote(i){let r=rows[i],n=document.getElementById('name-'+i),p=document.getElementById('price-'+i);if(n)n.textContent=r.name||'尚未查詢';if(p)p.textContent=positive(r.latestPrice)?fmt(r.latestPrice):'--';}
-async function onSymbol(i,v){let s=String(v||'').trim().toUpperCase().replace(/[^A-Z0-9.-]/g,'');rows[i].symbol=s;rows[i].name='';rows[i].src='';rows[i].latestPrice=null;let ver=++requestVersion[i];save();updateQuote(i);calculate();if(!s)return;if(quoteCache[s]){Object.assign(rows[i],{name:quoteCache[s].name,latestPrice:quoteCache[s].price,src:quoteCache[s].src});updateQuote(i);save();calculate();return;}setStatus('查詢 '+s,'run');let result=await getPrice(s);if(ver!==requestVersion[i]||rows[i].symbol!==s)return;if(result&&positive(result.price)){quoteCache[s]=result;rows[i].name=result.name||s;rows[i].latestPrice=Number(result.price);rows[i].src=result.src||'';setStatus(s+' 查詢成功');}else{rows[i].name='查價失敗';setStatus(s+' 查價失敗','warn');}save();updateQuote(i);calculate();}
+async function onSymbol(i,v){let s=String(v||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');if(s&&!/^\d{4,6}[A-Z]?$/.test(s)){setStatus('請輸入台股代碼（例：00888）','warn');s='';const input=document.getElementById('symbol-'+i);if(input)input.value='';}rows[i].symbol=s;rows[i].name='';rows[i].src='';rows[i].latestPrice=null;let ver=++requestVersion[i];save();updateQuote(i);calculate();if(!s)return;if(quoteCache[s]){Object.assign(rows[i],{name:quoteCache[s].name,latestPrice:quoteCache[s].price,src:quoteCache[s].src});updateQuote(i);save();calculate();return;}setStatus('查詢 '+s,'run');let result=await getPrice(s);if(ver!==requestVersion[i]||rows[i].symbol!==s)return;if(result&&positive(result.price)){quoteCache[s]=result;rows[i].name=result.name||s;rows[i].latestPrice=Number(result.price);rows[i].src=result.src||'';setStatus(s+' 查詢成功');}else{rows[i].name='查價失敗';setStatus(s+' 查價失敗','warn');}save();updateQuote(i);calculate();}
 async function fetchAll(){let symbols=[...new Set(rows.map(r=>r.symbol).filter(Boolean))];if(!symbols.length){setStatus('請輸入股票代碼','warn');return;}requestVersion=requestVersion.map(v=>v+1);let versions=requestVersion.slice();twseCache=tpexCache=null;quoteCache={};setStatus('更新 '+symbols.length+' 個代號','run');let ok=0,fail=0;for(let k=0;k<symbols.length;k+=6){await Promise.all(symbols.slice(k,k+6).map(async s=>{let r=await getPrice(s);if(r&&positive(r.price)){quoteCache[s]=r;ok++;}else fail++;}));rows.forEach((r,i)=>{if(versions[i]!==requestVersion[i])return;let q=quoteCache[r.symbol];if(q){r.name=q.name||r.symbol;r.latestPrice=q.price;r.src=q.src||'';}});save();rows.forEach((r,i)=>updateQuote(i));calculate();}setStatus('行情完成 '+ok+' 成功 '+fail+' 失敗',fail?'warn':'ok');}
-function setKey(){let v=prompt('輸入 Twelve Data API Key（美股行情使用）。留空可清除：',localStorage.getItem('TD_KEY')||'');if(v===null)return;if(v.trim())localStorage.setItem('TD_KEY',v.trim());else localStorage.removeItem('TD_KEY');quoteCache={};fetchAll();}
 function resetAll(){if(!confirm('確定清除全部100行的股票代碼、買賣紀錄及行情資料？此動作無法復原。'))return;requestVersion=requestVersion.map(v=>v+1);rows=Array.from({length:ROW_COUNT},blankRow);quoteCache={};save();render();setStatus('全部已重置');}
 function init(){load();render();let b=document.getElementById('backtop');window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>250),{passive:true});fetchAll();setInterval(fetchAll,60000);}
 window.addEventListener('load',init);

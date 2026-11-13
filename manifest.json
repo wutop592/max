@@ -1,24 +1,14 @@
 {
-  "name": "混合平均戰法 MIXED AVERAGE STRATEGY",
-  "short_name": "混合平均戰法",
-  "lang": "zh-TW",
+  "name": "混合平均戰法",
+  "short_name": "混合平均",
+  "description": "100行股票交易紀錄與分股票代碼平均成本計算",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#030508",
   "theme_color": "#030508",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ]
 }
