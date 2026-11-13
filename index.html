@@ -177,18 +177,31 @@ function calculate(){
  $('sym-body').innerHTML=a.bySym.length?a.bySym.map(s=>`<tr><td class="cyan-text">${esc(s.sym)}</td><td>${esc(nm[s.sym]||'--')}</td><td>${lotsFmt(s.qty)}</td><td>${s.qty>0?fmt(s.avg):'--'}</td><td>${s.px?fmt(s.px):'--'}</td><td>${s.px&&s.qty?money(s.val):'--'}</td><td class="${pcls(s.flt)}">${s.flt===null||!s.qty?'--':signed(s.flt)}</td><td class="${pcls(s.real)}">${signed(s.real)}</td></tr>`).join(''):'<tr><td colspan="8">尚無資料</td></tr>';
 }
 // ---- 行情 ----
-const PROXIES=[u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://r.jina.ai/'+u];
+const PROXIES=[u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://r.jina.ai/'+u];
+// 所有代理同時競速，取最先成功的JSON，比逐個等待逾時快很多
 async function fetchJSON(url){
- for(const proxy of PROXIES){
-  const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),7000);
-  try{const r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(r.ok){const t=await r.text();try{return JSON.parse(t);}catch(e){const s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s){try{return JSON.parse(t.slice(s,end+1));}catch(_){}}}}}
-  catch(e){}finally{clearTimeout(timer);}
- }
+ const one=async proxy=>{
+  const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),8000);
+  try{
+   const r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(!r.ok)throw 0;
+   const t=await r.text();
+   try{return JSON.parse(t);}catch(e){const s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s)return JSON.parse(t.slice(s,end+1));}
+   throw 0;
+  }finally{clearTimeout(timer);}
+ };
+ try{return await Promise.any(PROXIES.map(one));}catch(e){return null;}
+}
+// 證交所即時行情（一次同時查上市tse與上櫃otc）
+async function mis(code){
+ const d=await fetchJSON('https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=tse_'+code+'.tw%7Cotc_'+code+'.tw&json=1&delay=0&_='+Date.now());
+ const a=d?.msgArray;if(!Array.isArray(a))return null;
+ for(const x of a){if(String(x.c||'').toUpperCase()!==code)continue;const z=parseNum(x.z),y=parseNum(x.y),px=z>0?z:y;if(px>0)return{name:x.n||code,price:px,src:z>0?'證交所即時':'證交所昨收'};}
  return null;
 }
 async function yahoo(sym){for(const host of['query1','query2']){const d=await fetchJSON(`https://${host}.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`),m=d?.chart?.result?.[0]?.meta;if(m&&Number(m.regularMarketPrice)>0)return{name:m.shortName||m.longName||m.symbol,price:Number(m.regularMarketPrice)};}return null;}
 function pickField(x,re){const k=Object.keys(x||{}).find(k=>re.test(k));return k?x[k]:undefined;}
 async function taiwanStock(code){
+ const m0=await mis(code);if(m0)return m0;
  if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
  if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');
  const [tw,tp]=await Promise.all([twseCache,tpexCache]);
