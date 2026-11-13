@@ -52,7 +52,7 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
 </div></header>
 <main>
 <section class="summary-grid">
- <div class="summary-card highlight"><div class="summary-label">整體持倉浮動盈虧</div><div class="summary-value" id="total-floating">0</div><div class="summary-note">剩餘持倉 ×（現價 − 該代碼平均成本）</div></div>
+ <div class="summary-card highlight"><div class="summary-label">整體持倉浮動盈虧</div><div class="summary-value" id="total-floating">0</div><div class="summary-note">各列剩餘持股 ×（現價 − 該列買進成本）</div></div>
  <div class="summary-card"><div class="summary-label">累計已實現盈虧</div><div class="summary-value" id="total-realized">0</div><div class="summary-note">依同代碼加權平均成本；超賣數量不計入</div></div>
  <div class="summary-card purple"><div class="summary-label">總持倉市值</div><div class="summary-value" id="total-value">0</div><div class="summary-note">各代碼剩餘股數 × 現價</div></div>
 </section>
@@ -72,7 +72,7 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
 </section>
 <section class="panel"><h2 class="section-title">計算及使用說明</h2>
  <div class="bottom-note">1. 僅供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同代碼（例：2330、0050、00888、00919）。<br>2. 每張以1000股計算，張數只能輸入整數。<br>3. 依表格由上往下計算；每列先買進、再賣出（不依日期排序）。<br>4. 賣出超過當時持倉時，超出部分不計入，並顯示「超賣」警告。<br>5. 行情優先取Yahoo即時價，失敗時改用證交所／櫃買收盤價；每60秒自動更新（頁面在背景時暫停）。<br>6. 資料存於本瀏覽器，請勿清除網站資料。<br>7. 手續費及稅預設關閉，勾選後：買進手續費計入成本，賣出手續費與證交稅自賣出所得扣除。</div>
- <div class="bottom-note" style="border-top:1px solid var(--border);padding-top:10px;margin-top:10px"><b style="color:var(--cyan)">加權平均成本：</b><br>① 同代碼各列買進合併；不同代碼各自獨立。<br>② 平均成本＝剩餘成本 ÷ 剩餘股數。<br>③ 賣出已實現盈虧＝（賣出價×股數 − 賣出費用）−（賣出前平均成本×股數）。<br>④ 賣出後按比例扣除成本，剩餘平均成本不變；全數賣出後成本歸零。<br>⑤ 現價以「代碼」為單位共用，同代碼各列使用同一報價。</div>
+ <div class="bottom-note" style="border-top:1px solid var(--border);padding-top:10px;margin-top:10px"><b style="color:var(--cyan)">加權平均成本：</b><br>① 同代碼各列買進合併；不同代碼各自獨立。<br>② 平均成本＝剩餘成本 ÷ 剩餘股數。<br>③ 賣出已實現盈虧＝（賣出價×股數 − 賣出費用）−（賣出前平均成本×股數）。<br>④ 賣出後按比例扣除成本，剩餘平均成本不變；全數賣出後成本歸零。<br>⑤ 現價以「代碼」為單位共用；每列浮動盈虧以「該列自己的買進價」計算，賣出時各列按比例減少持股（單價不變），因此各列浮動盈虧加總＝整體浮動盈虧。</div>
 </section></main>
 <button id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
@@ -126,7 +126,7 @@ function accounting(){
   if(!pools.has(key))pools.set(key,{sym:r.symbol,qty:0,cost:0,real:0,lots:[]});
   const pool=pools.get(key);
   const bp=price(r.buy),bq=qty(r.buy);
-  if(bp>0&&bq>0){const amt=bp*bq,fee=buyFee(amt);o.buy=amt;buySum+=amt;costSum+=amt+fee;buyQ+=bq;pool.qty+=bq;pool.cost+=amt+fee;pool.lots.push({row:i,qty:bq});}
+  if(bp>0&&bq>0){const amt=bp*bq,fee=buyFee(amt);o.buy=amt;buySum+=amt;costSum+=amt+fee;buyQ+=bq;pool.qty+=bq;pool.cost+=amt+fee;pool.lots.push({row:i,qty:bq,unit:(amt+fee)/bq});}
   const sp=price(r.sell),sq=qty(r.sell);
   if(sp>0&&sq>0){
    o.hasSell=true;
@@ -136,10 +136,12 @@ function accounting(){
     const gross=sp*used,net=gross-sellFee(gross,r.symbol),avg=pool.cost/pool.qty,alloc=avg*used,pnl=net-alloc;
     o.sell=gross;sellSum+=gross;sellQ+=used;
     o.real+=pnl;o.realCost+=alloc;real+=pnl;pool.real+=pnl;
-    pool.qty-=used;pool.cost-=alloc;
-    if(pool.qty<=0){pool.qty=0;pool.cost=0;}// 清除浮點殘值
-    let need=used;
-    for(const lot of pool.lots){if(need<=0)break;const n=Math.min(lot.qty,need);lot.qty-=n;need-=n;}
+    // 賣出時各批買進按比例減少，各批單價不變 → 平均成本不變，且每列保有自己的買進成本
+    const keep=Math.max(0,1-used/pool.qty);
+    pool.qty-=used;
+    for(const lot of pool.lots)lot.qty*=keep;
+    if(pool.qty<=1e-6){pool.qty=0;pool.cost=0;pool.lots.forEach(l=>l.qty=0);}
+    else pool.cost=pool.lots.reduce((t,l)=>t+l.qty*l.unit,0);
    }
   }
  });
@@ -153,8 +155,8 @@ function accounting(){
   const avg=pool.cost/pool.qty,p=px[pool.sym]||0;act.push(avg);totalQty+=pool.qty;totalCost+=pool.cost;
   for(const lot of pool.lots){
    if(lot.qty<=0)continue;
-   const o=out[lot.row];o.left+=lot.qty;o.leftCost+=avg*lot.qty;
-   if(p>0){const pnl=(p-avg)*lot.qty;o.float+=pnl;floating+=pnl;value+=p*lot.qty;}
+   const o=out[lot.row];o.left+=lot.qty;o.leftCost+=lot.unit*lot.qty;
+   if(p>0){const pnl=(p-lot.unit)*lot.qty;o.float+=pnl;floating+=pnl;value+=p*lot.qty;}
   }
  }
  out.forEach((o,i)=>{if(o.leftCost>0&&px[rows[i].symbol])o.floatPct=o.float/o.leftCost*100;if(o.realCost>0)o.realPct=o.real/o.realCost*100;});
