@@ -13,32 +13,34 @@
 <title>混合平均戰法 MIXED AVERAGE STRATEGY</title>
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-:root{--cyan:#00f0ff;--green:#00ff66;--red:#ff426d;--purple:#a56aff;--border:#1a2940}
+:root{--cyan:#00f0ff;--up:#ff426d;--down:#00ff66;--purple:#a56aff;--border:#1a2940}
 body{margin:0;background:#030508;background-image:radial-gradient(ellipse at 50% 0%,rgba(112,0,255,.22),transparent 65%);color:#e2e8f0;min-height:100vh;font-family:Arial,"Noto Sans TC",sans-serif;font-size:15px;padding-bottom:35px}
 button,input{font:inherit}button{cursor:pointer}button:active{transform:scale(.97)}input{min-width:0}input:focus{outline:1px solid var(--cyan);border-color:var(--cyan)!important}
 input[type=number]{appearance:textfield;-moz-appearance:textfield}input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 header{position:sticky;top:0;z-index:100;background:rgba(5,8,15,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:12px}
 .header-inner{max-width:1500px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px}.app-icon{width:47px;height:47px;flex-shrink:0;border:1px solid var(--cyan);border-radius:13px;overflow:hidden;box-shadow:0 0 15px #00f03333}.app-icon img{width:100%;height:100%;object-fit:cover}
-h1{margin:0;font-size:23px;font-weight:1000;letter-spacing:2px;background:linear-gradient(90deg,var(--cyan),#fff,var(--purple));background-clip:text;-webkit-background-clip:text;color:transparent}
+h1{margin:0;font-size:23px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,var(--cyan),#fff,var(--purple));background-clip:text;-webkit-background-clip:text;color:transparent}
 .subtitle{font-size:11px;color:#8291a8;margin-top:4px;letter-spacing:1px}.toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-.btn{border:1px solid var(--border);background:#101827;color:#dbeafe;padding:9px 12px;border-radius:9px;font-weight:800;font-size:13px}.btn.cyan{border-color:#00d9eb;color:var(--cyan)}.btn.purple{border-color:#8855ff;color:#bd9bff}.btn.red{border-color:#a83250;color:#ff6688}
-.status{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--border);border-radius:9px;background:#030508;font-size:12px;font-weight:bold;color:var(--green)}.dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
-main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.96);border:1px solid var(--border);border-radius:13px;padding:13px;min-width:0}
+.btn{border:1px solid var(--border);background:#101827;color:#dbeafe;padding:9px 12px;border-radius:9px;font-weight:800;font-size:13px}.btn.cyan{border-color:#00d9eb;color:var(--cyan)}.btn.red{border-color:#a83250;color:#ff6688}
+.status{display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--border);border-radius:9px;background:#030508;font-size:12px;font-weight:bold;color:var(--down)}.dot{width:9px;height:9px;border-radius:50%;background:var(--down)}
+main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.96);border:1px solid var(--border);border-radius:13px;padding:13px;min-width:0;margin-top:13px}
 .section-title{font-size:17px;font-weight:900;color:var(--cyan);margin:0 0 12px}
-.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.summary-card{background:#090e18;border:1px solid var(--border);border-radius:11px;padding:12px 7px;text-align:center;min-width:0}.summary-card.highlight{border-color:#00ff6680}.summary-card.purple{border-color:#a56aff80}
-.summary-label{font-size:12px;color:#94a3b8;font-weight:800;margin-bottom:8px}.summary-value{font-size:clamp(20px,3vw,30px);font-weight:1000;overflow-wrap:anywhere;line-height:1.2}.summary-note{font-size:11px;color:#64748b;margin-top:7px}
-.green-text{color:#ff426d!important}.red-text{color:#00ff66!important}.cyan-text{color:var(--cyan)!important}.neutral-text{color:#e2e8f0!important}
-.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:12px}.stat{background:#030810;border:1px solid #1b2a40;border-radius:9px;padding:9px 5px;text-align:center;min-width:0}.stat-label{font-size:11px;color:#8795a9;margin-bottom:5px}.stat-value{font-size:18px;font-weight:900;overflow-wrap:anywhere}
-.table-panel{margin-top:13px;padding:0;overflow:hidden}.table-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:13px}.table-heading h2{margin:0;color:var(--cyan);font-size:17px}.table-heading span{font-size:12px;color:#8190a6}
-.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}.trade-table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1100px}.trade-table th,.trade-table td{border:1px solid #1a263a;padding:3px 2px;text-align:center;vertical-align:middle}.trade-table th{background:#121c2b;color:#9eacc0;font-size:12px;font-weight:900;white-space:nowrap;padding:7px 3px;position:sticky;top:0;z-index:2}.trade-table td{font-size:13px}.trade-table tbody tr:nth-child(even){background:#0f19208c}
+.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.summary-card{background:#090e18;border:1px solid var(--border);border-radius:11px;padding:12px 7px;text-align:center;min-width:0}.summary-card.highlight{border-color:#ff426d80}.summary-card.purple{border-color:#a56aff80}
+.summary-label{font-size:12px;color:#94a3b8;font-weight:800;margin-bottom:8px}.summary-value{font-size:clamp(20px,3vw,30px);font-weight:900;overflow-wrap:anywhere;line-height:1.2}.summary-note{font-size:11px;color:#64748b;margin-top:7px}
+.up{color:var(--up)!important}.down{color:var(--down)!important}.cyan-text{color:var(--cyan)!important}.flat{color:#e2e8f0!important}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.stat{background:#030810;border:1px solid #1b2a40;border-radius:9px;padding:9px 5px;text-align:center;min-width:0}.stat-label{font-size:11px;color:#8795a9;margin-bottom:5px}.stat-value{font-size:18px;font-weight:900;overflow-wrap:anywhere}
+.fee-bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:13px;color:#aab7c9}.fee-bar label{display:flex;gap:6px;align-items:center}.fee-bar input[type=number]{width:62px;background:#030508;border:1px solid #26344a;color:#fff;border-radius:5px;padding:5px;text-align:center}
+.table-panel{padding:0;overflow:hidden}.table-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding:13px}.table-heading h2{margin:0;color:var(--cyan);font-size:17px}.table-heading span{font-size:12px;color:#8190a6}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}.trade-table{border-collapse:collapse;table-layout:fixed;width:100%;min-width:1100px}.trade-table th,.trade-table td{border:1px solid #1a263a;padding:3px 2px;text-align:center;vertical-align:middle}.trade-table th{background:#121c2b;color:#9eacc0;font-size:12px;font-weight:900;white-space:nowrap;padding:7px 3px}.trade-table td{font-size:13px}.trade-table tbody tr:nth-child(even){background:#0f19208c}
+.sym-table{width:100%;border-collapse:collapse;min-width:640px}.sym-table th,.sym-table td{border:1px solid #1a263a;padding:6px 4px;text-align:center;font-size:13px}.sym-table th{background:#121c2b;color:#9eacc0;font-size:12px}
 .col-no{width:30px}.col-stock{width:140px}.col-date{width:90px}.col-price{width:70px}.col-lots{width:58px}.col-amount{width:90px}.col-profit{width:135px}.col-percent{width:105px}
 .stock-cell{padding:3px!important}.stock-input{width:100%;background:#030508;border:1px solid #00aabd;border-radius:6px;color:var(--cyan);font-size:17px;font-weight:900;text-align:center;padding:6px 3px;text-transform:uppercase}
-.stock-info{display:flex;justify-content:center;align-items:center;gap:2px;margin-top:3px}.stock-name{color:#d9e7f7;font-size:12px;font-weight:800;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1}.stock-price{color:var(--green);font-size:13px;font-weight:900;white-space:nowrap}
+.stock-info{display:flex;justify-content:center;align-items:center;gap:2px;margin-top:3px}.stock-name{color:#d9e7f7;font-size:12px;font-weight:800;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1}.stock-price{color:var(--cyan);font-size:13px;font-weight:900;white-space:nowrap}
 .trade-input{width:100%;min-width:0;background:#030508;border:1px solid #26344a;color:white;border-radius:5px;text-align:center;padding:6px 3px;font-size:13px;font-weight:700}.trade-input.date{font-size:11px;padding:6px 1px}.trade-input::placeholder{color:#526176;font-size:11px}
 .amount,.profit-cell,.percent-cell{font-size:13px;font-weight:900;text-align:center}.profit-cell,.percent-cell{line-height:1.8}.profit-line,.percent-line{display:block;white-space:nowrap}.row-warning{font-size:10px;color:#fbbf24;margin-top:3px}.row-index{color:#00d9eb;font-weight:900}
 .table-footer{padding:11px;background:#090e18;border-top:1px solid #26344a;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}.table-footer strong{color:var(--cyan)}
-.bottom-note{color:#8291a8;font-size:11px;line-height:1.8;margin-top:12px}.strategy-info{color:#aab7c9;font-size:12px;line-height:1.8;border-top:1px solid var(--border);padding-top:10px;margin-top:10px}.strategy-info b{color:var(--cyan)}
+.bottom-note{color:#8291a8;font-size:11px;line-height:1.8}
 #backtop{position:fixed;right:14px;bottom:22px;z-index:999;width:45px;height:45px;border:1px solid #fff4;border-radius:50%;background:linear-gradient(145deg,#00c9e9,#7000ff);color:white;font-size:20px;opacity:0;visibility:hidden;transition:.2s}#backtop.show{opacity:1;visibility:visible}
 @media(max-width:700px){header{padding:9px}h1{font-size:20px}.toolbar{width:100%}.toolbar .btn{flex:1;padding:9px 5px;font-size:12px}main{padding:9px}.summary-grid{gap:5px}.summary-card{padding:10px 4px}.summary-label{font-size:11px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat-value{font-size:17px}}
 </style>
@@ -50,44 +52,54 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
 </div></header>
 <main>
 <section class="summary-grid">
- <div class="summary-card highlight"><div class="summary-label">整體持倉浮動盈虧</div><div class="summary-value" id="total-floating">0</div><div class="summary-note">依各行剩餘持倉及各自行情計算</div></div>
- <div class="summary-card"><div class="summary-label">累計已實現盈虧</div><div class="summary-value" id="total-realized">0</div><div class="summary-note">按照相同股票代碼的平均成本計算；超賣數量不列入實際賣出金額</div></div>
- <div class="summary-card purple"><div class="summary-label">總持倉市值</div><div class="summary-value" id="total-value">0</div><div class="summary-note">各行剩餘數量 × 各自行情報價</div></div>
+ <div class="summary-card highlight"><div class="summary-label">整體持倉浮動盈虧</div><div class="summary-value" id="total-floating">0</div><div class="summary-note">剩餘持倉 ×（現價 − 該代碼平均成本）</div></div>
+ <div class="summary-card"><div class="summary-label">累計已實現盈虧</div><div class="summary-value" id="total-realized">0</div><div class="summary-note">依同代碼加權平均成本；超賣數量不計入</div></div>
+ <div class="summary-card purple"><div class="summary-label">總持倉市值</div><div class="summary-value" id="total-value">0</div><div class="summary-note">各代碼剩餘股數 × 現價</div></div>
 </section>
-<section class="panel"><h2 class="section-title">✦ 100行股票平均總覽</h2><div class="stats-grid">
+<section class="panel"><h2 class="section-title">✦ 整體總覽</h2><div class="stats-grid">
  <div class="stat"><div class="stat-label">平均成本（單一代碼）</div><div class="stat-value cyan-text" id="avg-cost">0</div></div><div class="stat"><div class="stat-label">總持有張數</div><div class="stat-value" id="total-lots">0</div></div><div class="stat"><div class="stat-label">剩餘持倉成本</div><div class="stat-value" id="remaining-cost">0</div></div><div class="stat"><div class="stat-label">總買進金額</div><div class="stat-value" id="buy-total">0</div></div><div class="stat"><div class="stat-label">總買進張數</div><div class="stat-value" id="buy-lots">0</div></div><div class="stat"><div class="stat-label">總賣出金額</div><div class="stat-value" id="sell-total">0</div></div><div class="stat"><div class="stat-label">累計賣出張數</div><div class="stat-value" id="sell-lots">0</div></div><div class="stat"><div class="stat-label">整體報酬率</div><div class="stat-value" id="total-percent">0%</div></div>
 </div></section>
+<section class="panel"><h2 class="section-title">⚙ 手續費／證交稅</h2><div class="fee-bar">
+ <label><input type="checkbox" id="fee-on" onchange="onFee()"> 計入手續費及交易稅</label>
+ <label>手續費折數 <input type="number" id="fee-disc" step="0.1" min="0.1" max="10" value="10" oninput="onFee()"> 折</label>
+ <span>費率0.1425%（最低20元）｜賣出稅：股票0.3%、ETF（00開頭）0.1%</span></div></section>
+<section class="panel"><h2 class="section-title">▤ 各代碼持倉明細</h2><div class="table-scroll"><table class="sym-table"><thead><tr><th>代碼</th><th>名稱</th><th>剩餘張數</th><th>平均成本</th><th>現價</th><th>市值</th><th>浮動盈虧</th><th>已實現</th></tr></thead><tbody id="sym-body"><tr><td colspan="8">尚無資料</td></tr></tbody></table></div></section>
 <section class="panel table-panel">
- <div class="table-heading"><h2>▦ 股票交易紀錄（100行）</h2><span>僅限台股代碼｜100行完整顯示｜自動儲存</span></div>
+ <div class="table-heading"><h2>▦ 股票交易紀錄（100行）</h2><span>僅限台股代碼｜自動儲存</span></div>
  <div class="table-scroll"><table class="trade-table"><colgroup><col class="col-no"><col class="col-stock"><col class="col-date"><col class="col-price"><col class="col-lots"><col class="col-amount"><col class="col-date"><col class="col-price"><col class="col-lots"><col class="col-amount"><col class="col-profit"><col class="col-percent"></colgroup>
- <thead><tr><th>序</th><th>股票代碼／名稱／目前價</th><th>買進日期</th><th>買進價</th><th>買進張數</th><th>買進金額</th><th>賣出日期</th><th>賣出價</th><th>賣出張數</th><th>賣出金額</th><th>已實現／浮動盈虧</th><th>盈虧百分比</th></tr></thead><tbody id="trade-body"></tbody></table></div>
+ <thead><tr><th>序</th><th>股票代碼／名稱／現價</th><th>買進日期</th><th>買進價</th><th>買進張數</th><th>買進金額</th><th>賣出日期</th><th>賣出價</th><th>賣出張數</th><th>賣出金額</th><th>已實現／浮動盈虧</th><th>盈虧百分比</th></tr></thead><tbody id="trade-body"></tbody></table></div>
  <div class="table-footer"><div>平均成本（單一代碼）：<strong id="footer-average">0</strong></div><div>整體總盈虧：<strong id="footer-profit">0</strong></div><div>紀錄數量：<strong>100 行</strong></div></div>
 </section>
-<section class="panel" style="margin-top:13px"><h2 class="section-title">計算及使用說明</h2>
- <div class="bottom-note">1. 本版只供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同台股代碼。<br>2. 台股代碼例如2330、0050、00888、00919。<br>3. 每張以1000股計算，買進及賣出張數只能輸入整數。<br>6. 買進及賣出均按照表格由上往下的順序計算。<br>7. 每列先執行買進，再執行賣出。<br>8. 賣出超過當時總持倉數量時，超出部分不計算，並顯示警告。<br>9. 行情價格會獨立查詢，總市值以各行剩餘數量及其價格計算。<br>10. 所有資料自動儲存於目前瀏覽器，請勿清除網站資料。<br>11. 行情每60秒自動更新一次，也可手動更新。<br>12. 本程式未計入手續費及交易稅。<br>13. 不同股票各自獨立計算平均成本，不會互相混算。<br>14. 已實現盈虧只計算實際賣出的數量；未賣出的剩餘數量仍然列為浮動盈虧。</div>
- <div class="strategy-info"><b>台股各代碼獨立平均成本計算方式：</b><br>① 相同股票代碼的100行買進紀錄合併計算；不同股票各自獨立。<br>② 各股票平均成本＝該股票剩餘成本 ÷ 該股票剩餘股數。<br>③ 每次賣出均依該股票賣出前的加權平均成本計算已實現盈虧；超出庫存的賣出數量不計入成交金額。<br>④ 賣出後扣除相應成本，剩餘平均成本不變。<br>⑤ 相同代碼即使分散在不同列也會合併；不同代碼不會互相影響成本。<br>⑥ 尚未賣出的持倉顯示浮動盈虧；有賣出紀錄時顯示已實現盈虧。<br>⑦ 部分賣出但仍有持倉時，同時顯示已實現盈虧及剩餘持倉浮動盈虧，百分比分別計算。</div>
+<section class="panel"><h2 class="section-title">計算及使用說明</h2>
+ <div class="bottom-note">1. 僅供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同代碼（例：2330、0050、00888、00919）。<br>2. 每張以1000股計算，張數只能輸入整數。<br>3. 依表格由上往下計算；每列先買進、再賣出（不依日期排序）。<br>4. 賣出超過當時持倉時，超出部分不計入，並顯示「超賣」警告。<br>5. 行情優先取Yahoo即時價，失敗時改用證交所／櫃買收盤價；每60秒自動更新（頁面在背景時暫停）。<br>6. 資料存於本瀏覽器，請勿清除網站資料。<br>7. 手續費及稅預設關閉，勾選後：買進手續費計入成本，賣出手續費與證交稅自賣出所得扣除。</div>
+ <div class="bottom-note" style="border-top:1px solid var(--border);padding-top:10px;margin-top:10px"><b style="color:var(--cyan)">加權平均成本：</b><br>① 同代碼各列買進合併；不同代碼各自獨立。<br>② 平均成本＝剩餘成本 ÷ 剩餘股數。<br>③ 賣出已實現盈虧＝（賣出價×股數 − 賣出費用）−（賣出前平均成本×股數）。<br>④ 賣出後按比例扣除成本，剩餘平均成本不變；全數賣出後成本歸零。<br>⑤ 現價以「代碼」為單位共用，同代碼各列使用同一報價。</div>
 </section></main>
 <button id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <script>
 'use strict';
-const STORAGE_KEY='MIXED_AVERAGE_STRATEGY_V1',ROW_COUNT=100;
+const STORAGE_KEY='MIXED_AVERAGE_STRATEGY_V1',FEE_KEY='MIXED_AVERAGE_FEE_V1',ROW_COUNT=100;
 const blankTrade=()=>({date:'',price:'',lots:'',amount:''}),blankRow=()=>({symbol:'',name:'',src:'',latestPrice:null,buy:blankTrade(),sell:blankTrade()});
-let rows=[],requestVersion=Array(ROW_COUNT).fill(0),quoteCache={},twseCache=null,tpexCache=null;
+let rows=[],requestVersion=Array(ROW_COUNT).fill(0),quoteCache={},twseCache=null,tpexCache=null,busy=false,feeCfg={on:false,disc:10};
+const $=id=>document.getElementById(id);
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function positive(v){return v!==''&&v!==null&&v!==undefined&&Number.isFinite(Number(v))&&Number(v)>0;}
 function wholeLots(v){return positive(v)?Math.floor(Number(v)):0;}
-function lotsFmt(shares){return Math.floor(Number(shares||0)/1000).toLocaleString('en-US',{maximumFractionDigits:0});}
-function fmt(n){if(!Number.isFinite(Number(n)))return '--';n=Number(n);if(n===0)return '0';if(Math.abs(n)>=1000)return n.toLocaleString('en-US',{maximumFractionDigits:2});if(Math.abs(n)>=100)return n.toFixed(2);if(Math.abs(n)>=1)return n.toFixed(4);return Number(n.toPrecision(5)).toString();}
-function money(n){return Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2});}
-function signed(n){n=Number(n||0);return(n>0?'+':n<0?'-':'')+money(Math.abs(n));}
+function lotsFmt(shares){return Math.floor(Number(shares||0)/1000+1e-9).toLocaleString('en-US',{maximumFractionDigits:0});}
+function fmt(n){if(!Number.isFinite(Number(n)))return '--';n=Number(n);if(n===0)return '0';if(Math.abs(n)>=1000)return n.toLocaleString('en-US',{maximumFractionDigits:2});return n.toFixed(2);}
+function money(n){return Number(n||0).toLocaleString('en-US',{maximumFractionDigits:0});}
+function signed(n){n=Math.round(Number(n||0));return(n>0?'+':n<0?'-':'')+money(Math.abs(n));}
 function pct(n){return Number.isFinite(n)?(n>0?'+':'')+n.toFixed(2)+'%':'0.00%';}
-function profitClass(n){return n>0?'green-text':n<0?'red-text':'neutral-text';}
-function setStatus(msg,type='ok'){const d=document.getElementById('status-dot'),t=document.getElementById('status-text'),c={ok:'#00ff66',run:'#00f0ff',warn:'#fbbf24',error:'#ff426d'};t.textContent=msg;d.style.background=c[type]||c.ok;t.style.color=c[type]||c.ok;}
+function pcls(n){n=Math.round(Number(n||0));return n>0?'up':n<0?'down':'flat';}
+function setStatus(msg,type='ok'){const c={ok:'#00ff66',run:'#00f0ff',warn:'#fbbf24',error:'#ff426d'};$('status-text').textContent=msg;$('status-dot').style.background=c[type]||c.ok;$('status-text').style.color=c[type]||c.ok;}
 function focusClear(el){el.dataset.originalValue=el.value;el.dataset.edited='0';el.value='';}
 function markEdited(el){if(el)el.dataset.edited='1';}
 function restoreEmpty(el){if(el.dataset.edited!=='1'&&el.value==='')el.value=el.dataset.originalValue??'';delete el.dataset.originalValue;delete el.dataset.edited;}
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(rows));}catch(e){setStatus('儲存空間不足','error');}}
-function load(){try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(Array.isArray(s)){rows=Array.from({length:ROW_COUNT},(_,i)=>{const r=s[i]||blankRow(),buy={...blankTrade(),...(r.buy||{})},sell={...blankTrade(),...(r.sell||{})};for(const t of[buy,sell])if(t.lots!==''){t.lots=String(wholeLots(t.lots));if(t.lots==='0')t.lots='';}return{symbol:r.symbol||'',name:r.name||'',src:r.src||'',latestPrice:positive(r.latestPrice)?Number(r.latestPrice):null,buy,sell};});}else rows=Array.from({length:ROW_COUNT},blankRow);}catch(e){rows=Array.from({length:ROW_COUNT},blankRow);}}
+function load(){
+ try{const f=JSON.parse(localStorage.getItem(FEE_KEY)||'null');if(f)feeCfg={on:!!f.on,disc:Number(f.disc)>0&&Number(f.disc)<=10?Number(f.disc):10};}catch(e){}
+ try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(Array.isArray(s)){rows=Array.from({length:ROW_COUNT},(_,i)=>{const r=s[i]||blankRow(),buy={...blankTrade(),...(r.buy||{})},sell={...blankTrade(),...(r.sell||{})};for(const t of[buy,sell])if(t.lots!==''){t.lots=String(wholeLots(t.lots));if(t.lots==='0')t.lots='';}return{symbol:r.symbol||'',name:r.name||'',src:r.src||'',latestPrice:positive(r.latestPrice)?Number(r.latestPrice):null,buy,sell};});}else rows=Array.from({length:ROW_COUNT},blankRow);}catch(e){rows=Array.from({length:ROW_COUNT},blankRow);}
+}
+function onFee(){feeCfg.on=$('fee-on').checked;const d=Number($('fee-disc').value);feeCfg.disc=d>0&&d<=10?d:10;try{localStorage.setItem(FEE_KEY,JSON.stringify(feeCfg));}catch(e){}calculate();}
 function render(){let h='';rows.forEach((r,i)=>{h+=`<tr><td class="row-index">${i+1}</td><td class="stock-cell"><input id="symbol-${i}" class="stock-input" value="${esc(r.symbol)}" placeholder="股票代碼" autocomplete="off" onfocus="focusClear(this)" oninput="markEdited(this)" onblur="restoreEmpty(this)" onchange="onSymbol(${i},this.value)" onkeydown="if(event.key==='Enter')this.blur()"><div class="stock-info"><span id="name-${i}" class="stock-name">${esc(r.name||'尚未查詢')}</span><span id="price-${i}" class="stock-price">${positive(r.latestPrice)?fmt(r.latestPrice):'--'}</span></div></td>
 <td><input class="trade-input date" type="date" value="${esc(r.buy.date)}" onfocus="focusClear(this)" oninput="markEdited(this)" onblur="restoreEmpty(this)" onchange="onTrade(${i},'buy','date',this.value)"></td>
 <td><input class="trade-input" type="number" step="any" placeholder="買進價" value="${esc(r.buy.price)}" onfocus="focusClear(this)" oninput="onTrade(${i},'buy','price',this.value)" onblur="restoreEmpty(this)"></td>
@@ -96,93 +108,132 @@ function render(){let h='';rows.forEach((r,i)=>{h+=`<tr><td class="row-index">${
 <td><input class="trade-input date" type="date" value="${esc(r.sell.date)}" onfocus="focusClear(this)" oninput="markEdited(this)" onblur="restoreEmpty(this)" onchange="onTrade(${i},'sell','date',this.value)"></td>
 <td><input class="trade-input" type="number" step="any" placeholder="賣出價" value="${esc(r.sell.price)}" onfocus="focusClear(this)" oninput="onTrade(${i},'sell','price',this.value)" onblur="restoreEmpty(this)"></td>
 <td><input class="trade-input" type="number" step="1" min="0" placeholder="整數" value="${esc(r.sell.lots)}" onfocus="focusClear(this)" oninput="onTrade(${i},'sell','lots',this.value)" onblur="restoreEmpty(this)"></td>
-<td><div id="sell-amount-${i}" class="amount">--</div></td><td><div id="row-profit-${i}" class="profit-cell">--</div><div id="row-warning-${i}" class="row-warning"></div></td><td id="row-percent-${i}" class="percent-cell">--</td></tr>`;});document.getElementById('trade-body').innerHTML=h;calculate();}
-function price(t){return positive(t.price)?Number(t.price):0;}function qty(t){return wholeLots(t.lots)*1000;}function parseNum(v){const n=Number(String(v??'').replace(/,/g,'').trim());return Number.isFinite(n)?n:0;}
-function onTrade(i,type,field,value){const t=rows[i][type],el=document.activeElement;if(el?.tagName==='INPUT')markEdited(el);if(field==='lots'){t.lots=value===''?'':(Number.isFinite(parseInt(value,10))&&parseInt(value,10)>0?String(parseInt(value,10)):'');if(el?.type==='number')el.value=t.lots;}else t[field]=value;if(field==='price'||field==='lots'){const v=price(t)*qty(t),a=document.getElementById(type+'-amount-'+i);t.amount=v>0?String(v):'';if(a)a.textContent=v>0?money(v):'--';}save();calculate();}
+<td><div id="sell-amount-${i}" class="amount">--</div></td><td><div id="row-profit-${i}" class="profit-cell">--</div><div id="row-warning-${i}" class="row-warning"></div></td><td id="row-percent-${i}" class="percent-cell">--</td></tr>`;});$('trade-body').innerHTML=h;$('fee-on').checked=feeCfg.on;$('fee-disc').value=feeCfg.disc;calculate();}
+const price=t=>positive(t.price)?Number(t.price):0,qty=t=>wholeLots(t.lots)*1000;
+function parseNum(v){const n=Number(String(v??'').replace(/,/g,'').trim());return Number.isFinite(n)?n:0;}
+function onTrade(i,type,field,value){const t=rows[i][type],el=document.activeElement;if(el?.tagName==='INPUT')markEdited(el);if(field==='lots'){const n=parseInt(value,10);t.lots=Number.isFinite(n)&&n>0?String(n):'';if(el?.type==='number'&&value!==''&&String(n)!==value)el.value=t.lots;}else t[field]=value;save();calculate();}
+// ---- 手續費與稅 ----
+const buyFee=a=>feeCfg.on&&a>0?Math.max(20,Math.floor(a*0.001425*feeCfg.disc/10)):0;
+const sellFee=(a,sym)=>feeCfg.on&&a>0?Math.max(20,Math.floor(a*0.001425*feeCfg.disc/10))+Math.floor(a*(/^00/.test(sym)?0.001:0.003)):0;
+// ---- 核心計算 ----
 function accounting(){
- // 每一個台股代碼各自建立成本池；相同代碼跨列合併，不同代碼絕不混算。
- const pools=new Map();
+ const pools=new Map(),px={};
+ rows.forEach(r=>{if(r.symbol&&positive(r.latestPrice))px[r.symbol]=Number(r.latestPrice);});// 現價以代碼共用
  const out=rows.map(()=>({buy:0,sell:0,real:0,realCost:0,hasSell:false,over:0,left:0,leftCost:0,float:0,floatPct:null,realPct:null}));
- let buySum=0,sellSum=0,buyQ=0,sellQ=0,real=0;
- function keyFor(r,i){return r.symbol?String(r.symbol).trim().toUpperCase():'__ROW_'+i;}
- function poolFor(key){if(!pools.has(key))pools.set(key,{qty:0,cost:0,lots:[]});return pools.get(key);}
+ let buySum=0,costSum=0,sellSum=0,sellQ=0,buyQ=0,real=0;
  rows.forEach((r,i)=>{
-  const o=out[i],key=keyFor(r,i),pool=poolFor(key);
+  const o=out[i],key=r.symbol||'__ROW_'+i;
+  if(!pools.has(key))pools.set(key,{sym:r.symbol,qty:0,cost:0,real:0,lots:[]});
+  const pool=pools.get(key);
   const bp=price(r.buy),bq=qty(r.buy);
-  if(bp>0&&bq>0){
-   const amount=bp*bq;o.buy=amount;buySum+=amount;buyQ+=bq;
-   pool.qty+=bq;pool.cost+=amount;pool.lots.push({row:i,qty:bq});
-  }
+  if(bp>0&&bq>0){const amt=bp*bq,fee=buyFee(amt);o.buy=amt;buySum+=amt;costSum+=amt+fee;buyQ+=bq;pool.qty+=bq;pool.cost+=amt+fee;pool.lots.push({row:i,qty:bq});}
   const sp=price(r.sell),sq=qty(r.sell);
   if(sp>0&&sq>0){
    o.hasSell=true;
    const used=Math.min(sq,pool.qty);
-   // 僅把實際有庫存可成交的數量計入賣出金額與賣出張數，超出部分不虛增。
-   o.sell=sp*used;sellSum+=o.sell;sellQ+=used;
+   o.over=sq-used;
    if(used>0){
-    const avg=pool.cost/pool.qty,allocated=avg*used,pnl=(sp-avg)*used;
-    o.real+=pnl;o.realCost+=allocated;real+=pnl;
-    pool.cost=Math.max(0,pool.cost-allocated);pool.qty=Math.max(0,pool.qty-used);
+    const gross=sp*used,net=gross-sellFee(gross,r.symbol),avg=pool.cost/pool.qty,alloc=avg*used,pnl=net-alloc;
+    o.sell=gross;sellSum+=gross;sellQ+=used;
+    o.real+=pnl;o.realCost+=alloc;real+=pnl;pool.real+=pnl;
+    pool.qty-=used;pool.cost-=alloc;
+    if(pool.qty<=0){pool.qty=0;pool.cost=0;}// 清除浮點殘值
     let need=used;
-    // FIFO只用來把剩餘持倉歸回原列；盈虧成本仍採同代碼加權平均法。
     for(const lot of pool.lots){if(need<=0)break;const n=Math.min(lot.qty,need);lot.qty-=n;need-=n;}
    }
-   o.over=sq-used;
   }
  });
- let floating=0,value=0,totalQty=0,totalCost=0;
- const activeAverages=[];
- for(const [key,pool] of pools){
-  if(pool.qty>0){
-   const avg=pool.cost/pool.qty;activeAverages.push({key,avg});
-   totalQty+=pool.qty;totalCost+=pool.cost;
-   for(const lot of pool.lots){
-    if(lot.qty<=0)continue;
-    const r=rows[lot.row],o=out[lot.row];
-    o.left+=lot.qty;o.leftCost+=avg*lot.qty;
-    if(positive(r.latestPrice)){
-     const px=Number(r.latestPrice),pnl=(px-avg)*lot.qty;
-     o.float+=pnl;floating+=pnl;value+=px*lot.qty;
-    }
-   }
+ let floating=0,value=0,totalQty=0,totalCost=0;const act=[],bySym=[];
+ for(const pool of pools.values()){
+  if(pool.sym&&(pool.qty>0||pool.real!==0)){
+   const p=px[pool.sym]||0,avg=pool.qty>0?pool.cost/pool.qty:0;
+   bySym.push({sym:pool.sym,qty:pool.qty,avg,px:p,val:p*pool.qty,flt:p?(p-avg)*pool.qty:null,real:pool.real});
+  }
+  if(pool.qty<=0)continue;
+  const avg=pool.cost/pool.qty,p=px[pool.sym]||0;act.push(avg);totalQty+=pool.qty;totalCost+=pool.cost;
+  for(const lot of pool.lots){
+   if(lot.qty<=0)continue;
+   const o=out[lot.row];o.left+=lot.qty;o.leftCost+=avg*lot.qty;
+   if(p>0){const pnl=(p-avg)*lot.qty;o.float+=pnl;floating+=pnl;value+=p*lot.qty;}
   }
  }
- out.forEach(o=>{
-  if(o.leftCost>0&&o.left>0&&o.left>0){
-   // 每列浮動報酬率以該列剩餘部位成本為分母。
-   const row=out.indexOf(o);
-   if(positive(rows[row]?.latestPrice))o.floatPct=o.float/o.leftCost*100;
-  }
-  if(o.realCost>0)o.realPct=o.real/o.realCost*100;
- });
+ out.forEach((o,i)=>{if(o.leftCost>0&&px[rows[i].symbol])o.floatPct=o.float/o.leftCost*100;if(o.realCost>0)o.realPct=o.real/o.realCost*100;});
  const total=real+floating;
- const avgText=activeAverages.length===0?'0':activeAverages.length===1?fmt(activeAverages[0].avg):'依代碼分開';
- return{q:totalQty,cost:totalCost,avg:activeAverages.length===1?activeAverages[0].avg:0,avgText,activeCount:activeAverages.length,real,floating,value,buySum,sellSum,buyQ,sellQ,total,ret:buySum?total/buySum*100:0,out};
+ return{q:totalQty,cost:totalCost,avgText:act.length===0?'0':act.length===1?fmt(act[0]):'依代碼分開',real,floating,value,buySum,sellSum,buyQ,sellQ,total,ret:costSum?total/costSum*100:0,bySym,out};
 }
-function showRow(o){let p='',v='';if(o.hasSell&&o.realCost){p+=`<span class="profit-line ${profitClass(o.real)}">已實現 ${signed(o.real)}</span>`;v+=`<span class="percent-line ${profitClass(o.real)}">${pct(o.realPct)}</span>`;}if(o.left&&o.floatPct!==null){p+=`<span class="profit-line ${profitClass(o.float)}">浮動 ${signed(o.float)}</span>`;v+=`<span class="percent-line ${profitClass(o.float)}">${pct(o.floatPct)}</span>`;}return{p:p||'--',v:v||'--'};}
-function calculate(){let a=accounting(),put=(id,v)=>{let e=document.getElementById(id);if(e)e.textContent=v;};put('total-floating',signed(a.floating));document.getElementById('total-floating').className='summary-value '+profitClass(a.floating);put('total-realized',signed(a.real));document.getElementById('total-realized').className='summary-value '+profitClass(a.real);put('total-value',money(a.value));put('avg-cost',a.avgText);put('total-lots',lotsFmt(a.q));put('remaining-cost',money(a.cost));put('buy-total',money(a.buySum));put('buy-lots',lotsFmt(a.buyQ));put('sell-total',money(a.sellSum));put('sell-lots',lotsFmt(a.sellQ));put('total-percent',pct(a.ret));document.getElementById('total-percent').className='stat-value '+profitClass(a.total);put('footer-average',a.avgText);put('footer-profit',signed(a.total));document.getElementById('footer-profit').className=profitClass(a.total);a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');let s=showRow(o),p=document.getElementById('row-profit-'+i),v=document.getElementById('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;put('row-warning-'+i,o.over?'超賣 '+lotsFmt(o.over)+' 張':'');});}
+function showRow(o){let p='',v='';if(o.hasSell&&o.realCost){p+=`<span class="profit-line ${pcls(o.real)}">已實現 ${signed(o.real)}</span>`;v+=`<span class="percent-line ${pcls(o.real)}">${pct(o.realPct)}</span>`;}if(o.left&&o.floatPct!==null){p+=`<span class="profit-line ${pcls(o.float)}">浮動 ${signed(o.float)}</span>`;v+=`<span class="percent-line ${pcls(o.float)}">${pct(o.floatPct)}</span>`;}return{p:p||'--',v:v||'--'};}
+function calculate(){
+ const a=accounting(),put=(id,v)=>{const e=$(id);if(e)e.textContent=v;};
+ put('total-floating',signed(a.floating));$('total-floating').className='summary-value '+pcls(a.floating);
+ put('total-realized',signed(a.real));$('total-realized').className='summary-value '+pcls(a.real);
+ put('total-value',money(a.value));put('avg-cost',a.avgText);put('total-lots',lotsFmt(a.q));put('remaining-cost',money(a.cost));
+ put('buy-total',money(a.buySum));put('buy-lots',lotsFmt(a.buyQ));put('sell-total',money(a.sellSum));put('sell-lots',lotsFmt(a.sellQ));
+ put('total-percent',pct(a.ret));$('total-percent').className='stat-value '+pcls(a.total);
+ put('footer-average',a.avgText);put('footer-profit',signed(a.total));$('footer-profit').className=pcls(a.total);
+ a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');const s=showRow(o),p=$('row-profit-'+i),v=$('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;put('row-warning-'+i,o.over?'超賣 '+lotsFmt(o.over)+' 張':'');});
+ const nm={};rows.forEach(r=>{if(r.symbol&&r.name&&r.name!=='查價失敗')nm[r.symbol]=r.name;});
+ $('sym-body').innerHTML=a.bySym.length?a.bySym.map(s=>`<tr><td class="cyan-text">${esc(s.sym)}</td><td>${esc(nm[s.sym]||'--')}</td><td>${lotsFmt(s.qty)}</td><td>${s.qty>0?fmt(s.avg):'--'}</td><td>${s.px?fmt(s.px):'--'}</td><td>${s.px&&s.qty?money(s.val):'--'}</td><td class="${pcls(s.flt)}">${s.flt===null||!s.qty?'--':signed(s.flt)}</td><td class="${pcls(s.real)}">${signed(s.real)}</td></tr>`).join(''):'<tr><td colspan="8">尚無資料</td></tr>';
+}
+// ---- 行情 ----
 const PROXIES=[u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://r.jina.ai/'+u];
-async function fetchJSON(url){for(const proxy of PROXIES){let ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),7000);try{let r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(r.ok){let t=await r.text();try{return JSON.parse(t);}catch(e){let s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s){try{return JSON.parse(t.slice(s,end+1));}catch(_){}}}}}catch(e){}clearTimeout(timer);}return null;}
-async function yahoo(s){for(let host of['query1','query2']){let d=await fetchJSON(`https://${host}.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(s)}?interval=1d&range=1d`),m=d?.chart?.result?.[0]?.meta;if(m&&Number(m.regularMarketPrice)>0)return{name:m.shortName||m.longName||m.symbol,price:Number(m.regularMarketPrice),src:'Yahoo Finance'};}return null;}
-async function taiwanStock(code){
- // 先查上市，再查上櫃；TPEx API 欄位名稱採彈性辨識，避免 ETF 欄位差異造成漏查。
- if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
- const tw=await twseCache;
- if(Array.isArray(tw)){const x=tw.find(v=>String(v.Code||v.code||'').trim()===code);if(x){const px=parseNum(x.ClosingPrice??x.close??x.Close);if(px>0)return{name:x.Name||x.name||code,price:px,src:'TWSE 收盤'};}}
- if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');
- const tp=await tpexCache;
- const list=Array.isArray(tp)?tp:(Array.isArray(tp?.data)?tp.data:[]);
- const x=list.find(v=>{const k=Object.keys(v||{}).find(k=>/securitiescompanycode|stockcode|code/i.test(k));return k&&String(v[k]??'').trim()===code;});
- if(x){const nk=Object.keys(x).find(k=>/companyname|stockname|name/i.test(k));const pk=Object.keys(x).find(k=>/closingprice|closeprice|close|lastprice/i.test(k));const px=pk?parseNum(x[pk]):0;if(px>0)return{name:(nk&&x[nk])||code,price:px,src:'TPEx 收盤'};}
- // 00888 為櫃買 ETF，Yahoo 正確代碼通常是 .TWO；先查 .TWO 再查 .TW。
- return await yahoo(code+'.TWO')||await yahoo(code+'.TW');
+async function fetchJSON(url){
+ for(const proxy of PROXIES){
+  const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),7000);
+  try{const r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(r.ok){const t=await r.text();try{return JSON.parse(t);}catch(e){const s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s){try{return JSON.parse(t.slice(s,end+1));}catch(_){}}}}}
+  catch(e){}finally{clearTimeout(timer);}
+ }
+ return null;
 }
-async function getPrice(raw){let s=String(raw||'').trim().toUpperCase();if(!/^\d{4,6}[A-Z]?$/.test(s))return null;return await taiwanStock(s);}
-function updateQuote(i){let r=rows[i],n=document.getElementById('name-'+i),p=document.getElementById('price-'+i);if(n)n.textContent=r.name||'尚未查詢';if(p)p.textContent=positive(r.latestPrice)?fmt(r.latestPrice):'--';}
-async function onSymbol(i,v){let s=String(v||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');if(s&&!/^\d{4,6}[A-Z]?$/.test(s)){setStatus('請輸入台股代碼（例：00888）','warn');s='';const input=document.getElementById('symbol-'+i);if(input)input.value='';}rows[i].symbol=s;rows[i].name='';rows[i].src='';rows[i].latestPrice=null;let ver=++requestVersion[i];save();updateQuote(i);calculate();if(!s)return;if(quoteCache[s]){Object.assign(rows[i],{name:quoteCache[s].name,latestPrice:quoteCache[s].price,src:quoteCache[s].src});updateQuote(i);save();calculate();return;}setStatus('查詢 '+s,'run');let result=await getPrice(s);if(ver!==requestVersion[i]||rows[i].symbol!==s)return;if(result&&positive(result.price)){quoteCache[s]=result;rows[i].name=result.name||s;rows[i].latestPrice=Number(result.price);rows[i].src=result.src||'';setStatus(s+' 查詢成功');}else{rows[i].name='查價失敗';setStatus(s+' 查價失敗','warn');}save();updateQuote(i);calculate();}
-async function fetchAll(){let symbols=[...new Set(rows.map(r=>r.symbol).filter(Boolean))];if(!symbols.length){setStatus('請輸入股票代碼','warn');return;}requestVersion=requestVersion.map(v=>v+1);let versions=requestVersion.slice();twseCache=tpexCache=null;quoteCache={};setStatus('更新 '+symbols.length+' 個代號','run');let ok=0,fail=0;for(let k=0;k<symbols.length;k+=6){await Promise.all(symbols.slice(k,k+6).map(async s=>{let r=await getPrice(s);if(r&&positive(r.price)){quoteCache[s]=r;ok++;}else fail++;}));rows.forEach((r,i)=>{if(versions[i]!==requestVersion[i])return;let q=quoteCache[r.symbol];if(q){r.name=q.name||r.symbol;r.latestPrice=q.price;r.src=q.src||'';}});save();rows.forEach((r,i)=>updateQuote(i));calculate();}setStatus('行情完成 '+ok+' 成功 '+fail+' 失敗',fail?'warn':'ok');}
+async function yahoo(sym){for(const host of['query1','query2']){const d=await fetchJSON(`https://${host}.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=1d&range=1d`),m=d?.chart?.result?.[0]?.meta;if(m&&Number(m.regularMarketPrice)>0)return{name:m.shortName||m.longName||m.symbol,price:Number(m.regularMarketPrice)};}return null;}
+function pickField(x,re){const k=Object.keys(x||{}).find(k=>re.test(k));return k?x[k]:undefined;}
+async function taiwanStock(code){
+ if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
+ if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');
+ const [tw,tp]=await Promise.all([twseCache,tpexCache]);
+ let market='',off=null;
+ if(Array.isArray(tw)){const x=tw.find(v=>String(v.Code||'').trim()===code);if(x){market='TW';off={name:x.Name||code,price:parseNum(x.ClosingPrice),src:'TWSE 收盤'};}}
+ if(!market){const list=Array.isArray(tp)?tp:(Array.isArray(tp?.data)?tp.data:[]);const x=list.find(v=>String(pickField(v,/securitiescompanycode|stockcode|^code$/i)??'').trim()===code);if(x){market='TWO';off={name:pickField(x,/companyname|stockname|^name$/i)||code,price:parseNum(pickField(x,/^close$|closingprice|closeprice|lastprice/i)),src:'TPEx 收盤'};}}
+ // 已知市場：只查對應的Yahoo後綴（取即時價），失敗才用官方收盤價
+ const y=market?await yahoo(code+'.'+market):(await yahoo(code+'.TW')||await yahoo(code+'.TWO'));
+ if(y)return{name:(off&&off.name)||y.name,price:y.price,src:'Yahoo 即時'};
+ if(off&&off.price>0)return off;
+ return null;
+}
+async function getPrice(raw){const s=String(raw||'').trim().toUpperCase();if(!/^\d{4,6}[A-Z]?$/.test(s))return null;return await taiwanStock(s);}
+function updateQuote(i){const r=rows[i],n=$('name-'+i),p=$('price-'+i);if(n)n.textContent=r.name||'尚未查詢';if(p)p.textContent=positive(r.latestPrice)?fmt(r.latestPrice):'--';}
+async function onSymbol(i,v){
+ let s=String(v||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
+ if(s&&!/^\d{4,6}[A-Z]?$/.test(s)){setStatus('請輸入台股代碼（例：00888）','warn');s='';const input=$('symbol-'+i);if(input)input.value='';}
+ rows[i].symbol=s;rows[i].name='';rows[i].src='';rows[i].latestPrice=null;
+ const ver=++requestVersion[i];
+ // 同代碼已有報價就直接沿用
+ const same=rows.find((r,k)=>k!==i&&r.symbol===s&&positive(r.latestPrice));
+ if(s&&same){Object.assign(rows[i],{name:same.name,latestPrice:same.latestPrice,src:same.src});}
+ save();updateQuote(i);calculate();if(!s||same)return;
+ if(quoteCache[s]){Object.assign(rows[i],{name:quoteCache[s].name,latestPrice:quoteCache[s].price,src:quoteCache[s].src});updateQuote(i);save();calculate();return;}
+ setStatus('查詢 '+s,'run');const result=await getPrice(s);
+ if(ver!==requestVersion[i]||rows[i].symbol!==s)return;
+ if(result&&positive(result.price)){quoteCache[s]=result;rows[i].name=result.name||s;rows[i].latestPrice=Number(result.price);rows[i].src=result.src||'';setStatus(s+' 查詢成功');}
+ else{rows[i].name='查價失敗';setStatus(s+' 查價失敗','warn');}
+ save();updateQuote(i);calculate();
+}
+async function fetchAll(){
+ if(busy)return;
+ const symbols=[...new Set(rows.map(r=>r.symbol).filter(Boolean))];
+ if(!symbols.length){setStatus('請輸入股票代碼','warn');return;}
+ busy=true;twseCache=tpexCache=null;quoteCache={};setStatus('更新 '+symbols.length+' 個代號','run');
+ let ok=0,fail=0;
+ try{
+  for(let k=0;k<symbols.length;k+=6){
+   await Promise.all(symbols.slice(k,k+6).map(async s=>{const r=await getPrice(s);if(r&&positive(r.price)){quoteCache[s]=r;ok++;}else fail++;}));
+   rows.forEach((r,i)=>{const q=quoteCache[r.symbol];if(q){r.name=q.name||r.symbol;r.latestPrice=q.price;r.src=q.src||'';}else if(r.symbol&&!positive(r.latestPrice)&&fail)r.name='查價失敗';});
+   save();rows.forEach((r,i)=>updateQuote(i));calculate();
+  }
+  setStatus('行情完成 '+ok+' 成功 '+fail+' 失敗',fail?'warn':'ok');
+ }finally{busy=false;}
+}
 function resetAll(){if(!confirm('確定清除全部100行的股票代碼、買賣紀錄及行情資料？此動作無法復原。'))return;requestVersion=requestVersion.map(v=>v+1);rows=Array.from({length:ROW_COUNT},blankRow);quoteCache={};save();render();setStatus('全部已重置');}
-function init(){load();render();let b=document.getElementById('backtop');window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>250),{passive:true});fetchAll();setInterval(fetchAll,60000);}
+function init(){load();render();const b=$('backtop');window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>250),{passive:true});fetchAll();setInterval(()=>{if(!document.hidden)fetchAll();},60000);}
 window.addEventListener('load',init);
 </script>
 </body></html>
