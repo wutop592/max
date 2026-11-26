@@ -48,7 +48,7 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
 <body>
 <header><div class="header-inner">
  <div class="brand"><div class="app-icon"><img src="icon-192.png" alt="混合平均戰法"></div><div><h1>混合平均戰法</h1><div class="subtitle">TAIWAN STOCKS · 100 ROWS</div></div></div>
- <div class="toolbar"><div class="status"><span class="dot" id="status-dot"></span><span id="status-text">待命</span></div><button class="btn cyan" onclick="fetchAll()">↻ 更新行情</button><button class="btn red" onclick="resetAll()">清除重置</button></div>
+ <div class="toolbar"><div class="status"><span class="dot" id="status-dot"></span><span id="status-text">待命</span></div><button class="btn cyan" onclick="fetchAll()">↻ 更新行情</button><button class="btn" onclick="exportData()">匯出</button><button class="btn" onclick="$('imp').click()">匯入</button><input id="imp" type="file" accept="application/json,.json" hidden onchange="importData(this)"><button class="btn red" onclick="resetAll()">清除重置</button></div>
 </div></header>
 <main>
 <section class="summary-grid">
@@ -71,7 +71,7 @@ main{max-width:1500px;margin:auto;padding:13px}.panel{background:rgba(10,14,23,.
  <div class="table-footer"><div>平均成本（單一代碼）：<strong id="footer-average">0</strong></div><div>整體總盈虧：<strong id="footer-profit">0</strong></div><div>紀錄數量：<strong>100 行</strong></div></div>
 </section>
 <section class="panel"><h2 class="section-title">計算及使用說明</h2>
- <div class="bottom-note">1. 僅供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同代碼（例：2330、0050、00888、00919）。<br>2. 每張以1000股計算，張數只能輸入整數。<br>3. 依表格由上往下計算；每列先買進、再賣出（不依日期排序）。<br>4. 賣出超過當時持倉時，超出部分不計入，並顯示「超賣」警告。<br>5. 行情優先取Yahoo即時價，失敗時改用證交所／櫃買收盤價；每60秒自動更新（頁面在背景時暫停）。<br>6. 資料存於本瀏覽器，請勿清除網站資料。<br>7. 手續費及稅預設關閉，勾選後：買進手續費計入成本，賣出手續費與證交稅自賣出所得扣除。</div>
+ <div class="bottom-note">1. 僅供台灣上市、上櫃股票及ETF使用，共100行，每行可輸入不同代碼（例：2330、0050、00888、00919）。<br>2. 每張以1000股計算，張數只能輸入整數。<br>3. 依表格由上往下計算；每列先買進、再賣出（不依日期排序）。<br>4. 賣出超過當時持倉時，超出部分不計入，並顯示「超賣」警告。<br>5. 行情依序取證交所即時價、Yahoo、證交所／櫃買收盤價；每60秒自動更新（頁面在背景時暫停）。<br>6. 資料存於本瀏覽器，請勿清除網站資料。<br>7. 手續費及稅預設關閉，勾選後：買進手續費計入成本，賣出手續費與證交稅自賣出所得扣除。<br>8. 可用上方「匯出／匯入」備份或轉移資料。</div>
  <div class="bottom-note" style="border-top:1px solid var(--border);padding-top:10px;margin-top:10px"><b style="color:var(--cyan)">加權平均成本：</b><br>① 同代碼各列買進合併；不同代碼各自獨立。<br>② 平均成本＝剩餘成本 ÷ 剩餘股數。<br>③ 賣出已實現盈虧＝（賣出價×股數 − 賣出費用）−（賣出前平均成本×股數）。<br>④ 賣出後按比例扣除成本，剩餘平均成本不變；全數賣出後成本歸零。<br>⑤ 現價以「代碼」為單位共用；每列浮動盈虧以「該列自己的買進價」計算，賣出時各列按比例減少持股（單價不變），因此各列浮動盈虧加總＝整體浮動盈虧。</div>
 </section></main>
 <button id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -172,24 +172,23 @@ function calculate(){
  put('buy-total',money(a.buySum));put('buy-lots',lotsFmt(a.buyQ));put('sell-total',money(a.sellSum));put('sell-lots',lotsFmt(a.sellQ));
  put('total-percent',pct(a.ret));$('total-percent').className='stat-value '+pcls(a.total);
  put('footer-average',a.avgText);put('footer-profit',signed(a.total));$('footer-profit').className=pcls(a.total);
- a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');const s=showRow(o),p=$('row-profit-'+i),v=$('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;put('row-warning-'+i,o.over?'超賣 '+lotsFmt(o.over)+' 張':'');});
+ a.out.forEach((o,i)=>{put('buy-amount-'+i,o.buy?money(o.buy):'--');put('sell-amount-'+i,o.sell?money(o.sell):'--');const s=showRow(o),p=$('row-profit-'+i),v=$('row-percent-'+i);if(p)p.innerHTML=s.p;if(v)v.innerHTML=s.v;const w=[],r=rows[i];if(o.over)w.push('超賣 '+lotsFmt(o.over)+' 張');if(r.buy.date&&r.sell.date&&r.sell.date<r.buy.date)w.push('賣出日早於買進日');if(!r.symbol&&(o.buy||o.hasSell))w.push('未填代碼');put('row-warning-'+i,w.join('｜'));});
  const nm={};rows.forEach(r=>{if(r.symbol&&r.name&&r.name!=='查價失敗')nm[r.symbol]=r.name;});
  $('sym-body').innerHTML=a.bySym.length?a.bySym.map(s=>`<tr><td class="cyan-text">${esc(s.sym)}</td><td>${esc(nm[s.sym]||'--')}</td><td>${lotsFmt(s.qty)}</td><td>${s.qty>0?fmt(s.avg):'--'}</td><td>${s.px?fmt(s.px):'--'}</td><td>${s.px&&s.qty?money(s.val):'--'}</td><td class="${pcls(s.flt)}">${s.flt===null||!s.qty?'--':signed(s.flt)}</td><td class="${pcls(s.real)}">${signed(s.real)}</td></tr>`).join(''):'<tr><td colspan="8">尚無資料</td></tr>';
 }
 // ---- 行情 ----
 const PROXIES=[u=>u,u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://corsproxy.io/?'+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://r.jina.ai/'+u];
 // 所有代理同時競速，取最先成功的JSON，比逐個等待逾時快很多
+if(!Promise.any)Promise.any=ps=>new Promise((res,rej)=>{let n=ps.length;if(!n)return rej(new Error('none'));ps.forEach(p=>Promise.resolve(p).then(res,()=>{if(--n===0)rej(new Error('all failed'));}));});
 async function fetchJSON(url){
+ const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),8000);
  const one=async proxy=>{
-  const ctl=new AbortController(),timer=setTimeout(()=>ctl.abort(),8000);
-  try{
-   const r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(!r.ok)throw 0;
-   const t=await r.text();
-   try{return JSON.parse(t);}catch(e){const s=t.search(/[\[{]/),end=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(s>=0&&end>s)return JSON.parse(t.slice(s,end+1));}
-   throw 0;
-  }finally{clearTimeout(timer);}
+  const r=await fetch(proxy(url),{signal:ctl.signal,cache:'no-store'});if(!r.ok)throw 0;
+  const t=await r.text();
+  try{return JSON.parse(t);}catch(e){const a=t.search(/[\[{]/),b=Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'));if(a>=0&&b>a)return JSON.parse(t.slice(a,b+1));}
+  throw 0;
  };
- try{return await Promise.any(PROXIES.map(one));}catch(e){return null;}
+ try{return await Promise.any(PROXIES.map(one));}catch(e){return null;}finally{clearTimeout(timer);ctl.abort();}
 }
 // 證交所即時行情（一次同時查上市tse與上櫃otc）
 async function mis(code){
@@ -204,7 +203,7 @@ async function taiwanStock(code){
  const m0=await mis(code);if(m0)return m0;
  if(!twseCache)twseCache=fetchJSON('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
  if(!tpexCache)tpexCache=fetchJSON('https://www.tpex.org.tw/openapi/v1/tpex_mainboard_daily_close_quotes');
- const [tw,tp]=await Promise.all([twseCache,tpexCache]);
+ const [tw,tp]=await Promise.all([twseCache,tpexCache]);if(!tw)twseCache=null;if(!tp)tpexCache=null;
  let market='',off=null;
  if(Array.isArray(tw)){const x=tw.find(v=>String(v.Code||'').trim()===code);if(x){market='TW';off={name:x.Name||code,price:parseNum(x.ClosingPrice),src:'TWSE 收盤'};}}
  if(!market){const list=Array.isArray(tp)?tp:(Array.isArray(tp?.data)?tp.data:[]);const x=list.find(v=>String(pickField(v,/securitiescompanycode|stockcode|^code$/i)??'').trim()===code);if(x){market='TWO';off={name:pickField(x,/companyname|stockname|^name$/i)||code,price:parseNum(pickField(x,/^close$|closingprice|closeprice|lastprice/i)),src:'TPEx 收盤'};}}
@@ -232,10 +231,10 @@ async function onSymbol(i,v){
  else{rows[i].name='查價失敗';setStatus(s+' 查價失敗','warn');}
  save();updateQuote(i);calculate();
 }
-async function fetchAll(){
- if(busy)return;
+async function fetchAll(auto){
+ if(busy){if(!auto)setStatus('更新中…','run');return;}
  const symbols=[...new Set(rows.map(r=>r.symbol).filter(Boolean))];
- if(!symbols.length){setStatus('請輸入股票代碼','warn');return;}
+ if(!symbols.length){if(!auto)setStatus('請輸入股票代碼','warn');return;}
  busy=true;twseCache=tpexCache=null;quoteCache={};setStatus('更新 '+symbols.length+' 個代號','run');
  let ok=0,fail=0;
  try{
@@ -247,8 +246,10 @@ async function fetchAll(){
   setStatus('行情完成 '+ok+' 成功 '+fail+' 失敗',fail?'warn':'ok');
  }finally{busy=false;}
 }
+function exportData(){const b=new Blob([JSON.stringify({v:1,rows,fee:feeCfg})],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mixed-average-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);}
+function importData(inp){const f=inp.files[0];inp.value='';if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result),arr=Array.isArray(d)?d:d.rows;if(!Array.isArray(arr))throw 0;if(!confirm('匯入會覆蓋目前全部資料，確定？'))return;localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));if(d.fee)localStorage.setItem(FEE_KEY,JSON.stringify(d.fee));load();render();save();fetchAll();setStatus('匯入完成');}catch(e){setStatus('匯入失敗：檔案格式不正確','error');}};rd.readAsText(f);}
 function resetAll(){if(!confirm('確定清除全部100行的股票代碼、買賣紀錄及行情資料？此動作無法復原。'))return;requestVersion=requestVersion.map(v=>v+1);rows=Array.from({length:ROW_COUNT},blankRow);quoteCache={};save();render();setStatus('全部已重置');}
-function init(){load();render();const b=$('backtop');window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>250),{passive:true});fetchAll();setInterval(()=>{if(!document.hidden)fetchAll();},60000);}
+function init(){load();render();const b=$('backtop');window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>250),{passive:true});fetchAll();setInterval(()=>{if(!document.hidden)fetchAll(true);},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)fetchAll(true);});}
 window.addEventListener('load',init);
 </script>
 </body></html>
